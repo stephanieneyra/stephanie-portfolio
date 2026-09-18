@@ -1,0 +1,38 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import type { Lang } from '../i18n/utils';
+import '../styles/global.css';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+
+const { lang, title, description } = Astro.props;
+
+// Strip the /es prefix so Navbar always receives a language-agnostic path.
+const rawPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const currentPath = rawPath.replace(/^\/es/, '') || '/';
+---
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} · Stephanie Neyra</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={`${title} · Stephanie Neyra`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <Navbar lang={lang} currentPath={currentPath} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

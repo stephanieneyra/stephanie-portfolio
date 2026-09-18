@@ -1,0 +1,28 @@
+---
+interface Props {
+  variant?: 'default' | 'muted';
+}
+
+const { variant = 'default' } = Astro.props;
+---
+<span class:list={['tag', variant === 'muted' && 'tag-muted']}>
+  <slot />
+</span>
+
+<style>
+  .tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--color-matcha) 14%, white);
+    color: var(--color-matcha-dark);
+  }
+
+  .tag-muted {
+    background: var(--color-paper);
+    color: var(--color-gray);
+    border: 1px solid var(--color-border);
+  }
+</style>

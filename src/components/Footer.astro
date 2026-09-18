@@ -1,0 +1,87 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+// The signature quote stays in English in both languages — it's a personal
+// signature, not page content, so it is never translated.
+const signatureQuote = 'Better questions lead to better data, and better data leads to better decisions.';
+---
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p class="signature">
+      &ldquo;{signatureQuote}&rdquo; <span class="signature-name">&mdash; Stephanie Neyra</span>
+    </p>
+
+    <hr class="divider" />
+
+    <div class="footer-bottom">
+      <span class="eyebrow">{t('footer.tagline')}</span>
+      <div class="footer-links">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/stephanieneyra" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://medium.com" target="_blank" rel="noopener noreferrer">Medium</a>
+      </div>
+      <span class="copyright">&copy; {year} Stephanie Neyra</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 48px 0 32px;
+  }
+
+  .signature {
+    margin: 0 0 32px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--color-gray);
+    text-align: center;
+  }
+
+  .signature-name {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-gray);
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--color-gray);
+  }
+
+  .footer-links a:hover {
+    color: var(--color-ink);
+  }
+
+  .copyright {
+    font-size: 12px;
+    color: var(--color-gray);
+  }
+</style>

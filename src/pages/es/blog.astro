@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'es' as const;
+const t = useTranslations(lang);
+---
+<BaseLayout lang={lang} title={t('nav.blog')} description={t('comingSoon.body')}>
+  <section class="section wrap coming-soon">
+    <span class="eyebrow">{t('nav.blog')}</span>
+    <h1>{t('comingSoon.title')}</h1>
+    <p>{t('comingSoon.body')}</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .coming-soon {
+    padding-top: 96px;
+    padding-bottom: 96px;
+    max-width: 640px;
+  }
+  .coming-soon h1 {
+    font-size: 32px;
+    margin-top: 12px;
+  }
+  .coming-soon p {
+    margin-top: 16px;
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+// Subtle floating matcha-green motes for the hero background.
+// Purely decorative -> aria-hidden, and respects prefers-reduced-motion (see global.css).
+const dots = [
+  { size: 10, left: '8%', top: '70%', delay: '0s', duration: '9s' },
+  { size: 6, left: '20%', top: '30%', delay: '1.2s', duration: '11s' },
+  { size: 14, left: '35%', top: '55%', delay: '2.4s', duration: '10s' },
+  { size: 8, left: '55%', top: '20%', delay: '0.6s', duration: '12s' },
+  { size: 12, left: '68%', top: '65%', delay: '1.8s', duration: '9.5s' },
+  { size: 7, left: '82%', top: '35%', delay: '3s', duration: '10.5s' },
+  { size: 9, left: '92%', top: '75%', delay: '0.9s', duration: '11.5s' }
+];
+---
+<div class="dots-field" aria-hidden="true">
+  {dots.map((d) => (
+    <span
+      class="dot"
+      style={`--size:${d.size}px; left:${d.left}; top:${d.top}; animation-delay:${d.delay}; animation-duration:${d.duration};`}
+    />
+  ))}
+</div>
+
+<style>
+  .dots-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .dot {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--color-matcha);
+    opacity: 0.28;
+    animation-name: drift;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 0.18;
+    }
+    50% {
+      transform: translateY(-22px);
+      opacity: 0.4;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot {
+      animation: none;
+      opacity: 0.22;
+    }
+  }
+</style>

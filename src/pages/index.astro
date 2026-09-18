@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FloatingDots from '../components/FloatingDots.astro';
+import Button from '../components/Button.astro';
+import Tag from '../components/Tag.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { useTranslations } from '../i18n/utils';
+
+const lang = 'en' as const;
+const t = useTranslations(lang);
+
+// Placeholder data, clearly marked provisional=true — replace with real case
+// studies once they're written, then flip provisional to false.
+const featuredProjects = [
+  {
+    category: 'Business Intelligence & Dashboards',
+    title: 'Retail sales dashboard',
+    description: 'An executive dashboard to spot trends, performance drops, and commercial opportunities in retail sales.',
+    href: '/projects/retail-sales-dashboard',
+    provisional: false
+  },
+  {
+    category: 'Forecasting & Inventory',
+    title: 'Demand forecast model',
+    description: 'A forecasting model to reduce stockouts and overstock using historical sales data.',
+    href: '/projects/demand-forecast-model',
+    provisional: false
+  },
+  {
+    category: 'Marketing Analytics',
+    title: 'Customer segmentation',
+    description: 'Data-driven segmentation to replace generic campaigns with targeted marketing actions.',
+    href: '/projects/customer-segmentation',
+    provisional: false
+  }
+];
+
+const recentArticles = [
+  { title: 'Turning data into growth opportunities', category: 'Real-World Case Analysis' },
+  { title: '3 metrics every marketing team should track', category: 'Applied Learning' }
+];
+---
+<BaseLayout lang={lang} title="Home" description={t('hero.subtitle')}>
+  <section class="hero section">
+    <FloatingDots />
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Marketing &middot; Data &middot; Supply Chain</span>
+      <p class="hero-name">Stephanie Neyra</p>
+      <h1 class="hero-title">{t('hero.title')}</h1>
+      <p class="hero-subtitle">{t('hero.subtitle')}</p>
+      <div class="hero-actions">
+        <Button href="/projects">{t('hero.cta')}</Button>
+        <Button href="/cv.pdf" variant="outline">{t('cta.downloadCv')}</Button>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section skills-strip">
+    <div class="wrap tags">
+      <Tag>{t('skills.marketing')}</Tag>
+      <Tag>{t('skills.data')}</Tag>
+      <Tag>{t('skills.supply')}</Tag>
+      <Tag>{t('skills.bi')}</Tag>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">{t('projects.eyebrow')}</span>
+          <h2>{t('projects.title')}</h2>
+        </div>
+        <a href="/projects" class="view-all">{t('projects.viewAll')} &rarr;</a>
+      </div>
+
+      <div class="cards-grid">
+        {featuredProjects.map((p) => (
+          <ProjectCard
+            category={p.category}
+            title={p.title}
+            description={p.description}
+            href={p.href}
+            provisional={p.provisional}
+            provisionalLabel="Example"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">{t('blog.eyebrow')}</span>
+          <h2>{t('blog.title')}</h2>
+        </div>
+        <a href="/blog" class="view-all">{t('blog.viewBlog')} &rarr;</a>
+      </div>
+
+      <div class="articles-preview">
+        {recentArticles.map((a) => (
+          <a href="/blog" class="article-row">
+            <Tag>{a.category}</Tag>
+            <span class="article-row-title">{a.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section cta-final">
+    <div class="wrap cta-inner">
+      <h2>{t('cta.title')}</h2>
+      <div class="cta-actions">
+        <Button href="/contact">{t('cta.getInTouch')}</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+  }
+
+  .hero-name {
+    margin: 16px 0 0;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-ink);
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 5.5vw, 56px);
+    margin-top: 12px;
+  }
+
+  .hero-subtitle {
+    margin-top: 24px;
+    font-size: 18px;
+    max-width: 52ch;
+  }
+
+  .hero-actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .section-head h2 {
+    font-size: 30px;
+    margin-top: 8px;
+  }
+
+  .view-all {
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 860px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .articles-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .article-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+
+  .article-row-title {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--color-ink);
+  }
+
+  .cta-final {
+    text-align: center;
+    background: var(--color-paper);
+  }
+
+  .cta-inner h2 {
+    font-size: clamp(26px, 3.5vw, 34px);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .cta-actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
+

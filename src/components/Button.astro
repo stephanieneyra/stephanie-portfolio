@@ -1,0 +1,48 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'outline';
+}
+
+const { href, variant = 'primary' } = Astro.props;
+---
+<a href={href} class:list={['btn', variant === 'primary' ? 'btn-primary' : 'btn-outline']}>
+  <slot />
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-bg);
+    border-color: var(--color-ink);
+  }
+
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--color-ink) 82%, white);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-ink);
+    background: var(--color-paper);
+  }
+</style>

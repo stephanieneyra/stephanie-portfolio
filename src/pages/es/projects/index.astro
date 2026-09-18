@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { useTranslations } from '../../../i18n/utils';
+import { getCollection } from 'astro:content';
+import { categories, categoryLabel } from '../../../content/categories';
+
+const lang = 'es' as const;
+const t = useTranslations(lang);
+
+const allProjects = (await getCollection('projects'))
+  .filter((p) => p.data.lang === lang && p.data.published)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout lang={lang} title={t('nav.projects')} description={t('projects.title')}>
+  <section class="section wrap projects-header">
+    <span class="eyebrow">{t('projects.eyebrow')}</span>
+    <h1>{t('projects.title')}</h1>
+  </section>
+
+  <section class="section wrap projects-body">
+    <div class="filters" role="group" aria-label="Filtrar proyectos por categoría">
+      <button class="filter-btn is-active" data-filter="all">Todos</button>
+      {categories.map((c) => (
+        <button class="filter-btn" data-filter={c.slug}>{c.es}</button>
+      ))}
+    </div>
+
+    {allProjects.length === 0 ? (
+      <p class="empty-state">Los casos de negocio se están redactando — vuelve pronto.</p>
+    ) : (
+      <div class="cards-grid" id="projects-grid">
+        {allProjects.map((p) => (
+          <div class="grid-item" data-category={p.data.category}>
+            <ProjectCard
+              category={categoryLabel(p.data.category, lang)}
+              title={p.data.title}
+              description={p.data.summary}
+              href={`/es/projects/${p.data.slug}`}
+            />
+          </div>
+        ))}
+      </div>
+    )}
+
+    {categories.map((c) => {
+      const hasAny = allProjects.some((p) => p.data.category === c.slug);
+      return !hasAny ? (
+        <p class="empty-category" data-empty-for={c.slug} hidden>
+          {c.es} &mdash; próximamente.
+        </p>
+      ) : null;
+    })}
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-header {
+    padding-top: 72px;
+    padding-bottom: 0;
+  }
+
+  .projects-header h1 {
+    font-size: clamp(30px, 4vw, 44px);
+    margin-top: 8px;
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .filter-btn {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-gray);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .filter-btn.is-active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bg);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 860px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .grid-item[hidden] {
+    display: none;
+  }
+
+  .empty-state,
+  .empty-category {
+    color: var(--color-gray);
+    font-size: 15px;
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.grid-item');
+  const emptyNotes = document.querySelectorAll<HTMLElement>('.empty-category');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+
+      items.forEach((item) => {
+        const match = filter === 'all' || item.dataset.category === filter;
+        item.hidden = !match;
+      });
+
+      emptyNotes.forEach((note) => {
+        const isForThisFilter = filter !== 'all' && note.dataset.emptyFor === filter;
+        note.hidden = !isForThisFilter;
+      });
+    });
+  });
+</script>

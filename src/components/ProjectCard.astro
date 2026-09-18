@@ -1,0 +1,54 @@
+---
+import Tag from './Tag.astro';
+
+interface Props {
+  category: string;
+  title: string;
+  description: string;
+  href: string;
+  provisional?: boolean;
+  provisionalLabel?: string;
+}
+
+const { category, title, description, href, provisional = false, provisionalLabel = 'Example' } = Astro.props;
+---
+<a href={href} class="project-card">
+  <div class="card-top">
+    <Tag>{category}</Tag>
+    {provisional && <Tag variant="muted">{provisionalLabel}</Tag>}
+  </div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    padding: 28px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    background: var(--color-paper);
+    transition: border-color 0.15s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--color-ink);
+  }
+
+  .card-top {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .project-card h3 {
+    font-size: 20px;
+    margin-top: 16px;
+  }
+
+  .project-card p {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+</style>
