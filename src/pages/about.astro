@@ -1,29 +1,78 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Tag from '../components/Tag.astro';
 import { useTranslations } from '../i18n/utils';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
+
+// Derived from Stephanie's own project content — not invented.
+const tools = ['Power BI', 'Excel', 'SQL', 'Python'];
 ---
-<BaseLayout lang={lang} title={t('nav.about')} description={t('comingSoon.body')}>
-  <section class="section wrap coming-soon">
-    <span class="eyebrow">{t('nav.about')}</span>
-    <h1>{t('comingSoon.title')}</h1>
-    <p>{t('comingSoon.body')}</p>
+<BaseLayout lang={lang} title={t('nav.about')} description={t('about.bio')}>
+  <section class="section wrap about-bio">
+    <span class="eyebrow">{t('about.eyebrow')}</span>
+    <h1>Stephanie Neyra</h1>
+    <p class="bio-text">{t('about.bio')}</p>
+    <Button href="/cv.pdf">{t('cta.downloadCv')}</Button>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section wrap about-secondary">
+    <h2>{t('about.readsHeading')}</h2>
+    <p class="pending">{t('about.readsPending')}</p>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section wrap about-tools">
+    <h2>{t('about.toolsHeading')}</h2>
+    <div class="tools-list">
+      {tools.map((tool) => <Tag variant="muted">{tool}</Tag>)}
+    </div>
   </section>
 </BaseLayout>
 
 <style>
-  .coming-soon {
-    padding-top: 96px;
-    padding-bottom: 96px;
-    max-width: 640px;
+  .about-bio {
+    padding-top: 72px;
+    max-width: 680px;
   }
-  .coming-soon h1 {
-    font-size: 32px;
+
+  .about-bio h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin-top: 8px;
+  }
+
+  .bio-text {
+    margin-top: 24px;
+    font-size: 17px;
+    max-width: 62ch;
+  }
+
+  .about-bio :global(a.btn) {
+    margin-top: 32px;
+  }
+
+  .about-secondary h2,
+  .about-tools h2 {
+    font-size: 20px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+  }
+
+  .pending {
     margin-top: 12px;
+    font-size: 15px;
+    font-style: italic;
   }
-  .coming-soon p {
+
+  .tools-list {
     margin-top: 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 </style>
