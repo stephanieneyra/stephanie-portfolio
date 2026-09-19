@@ -36,7 +36,7 @@ const allProjects = (await getCollection('projects'))
               category={categoryLabel(p.data.category, lang)}
               title={p.data.title}
               description={p.data.summary}
-              href={`/projects/${p.data.slug}`}
+              href={`/projects/${p.data.projectSlug}`}
             />
           </div>
         ))}

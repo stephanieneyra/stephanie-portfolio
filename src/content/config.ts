@@ -13,8 +13,11 @@ const projects = defineCollection({
   schema: z.object({
     lang: z.enum(['en', 'es']),
     // Shared across the en/es pair of the same project so we can link between
-    // language versions and match cards 1:1.
-    slug: z.string(),
+    // language versions and match cards 1:1. Named "projectSlug" (not "slug")
+    // because Astro's content collections reserve the "slug" frontmatter key
+    // for internal routing and require it to be unique across the WHOLE
+    // collection — which breaks on purpose when an en/es pair share a value.
+    projectSlug: z.string(),
     category: categoryEnum,
     title: z.string(),
     summary: z.string(),
