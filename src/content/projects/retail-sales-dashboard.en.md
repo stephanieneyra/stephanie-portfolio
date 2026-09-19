@@ -1,6 +1,6 @@
 ---
 lang: "en"
-slug: "retail-sales-dashboard"
+projectSlug: "retail-sales-dashboard"
 category: "bi-dashboards"
 title: "Retail sales dashboard"
 summary: "An executive dashboard to spot trends, performance drops, and commercial opportunities in retail sales."

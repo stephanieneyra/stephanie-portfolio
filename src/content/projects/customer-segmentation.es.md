@@ -1,6 +1,6 @@
 ---
 lang: "es"
-slug: "customer-segmentation"
+projectSlug: "customer-segmentation"
 category: "marketing-analytics"
 title: "Segmentación de clientes"
 summary: "Segmentación basada en datos para reemplazar campañas genéricas con acciones de marketing dirigidas."

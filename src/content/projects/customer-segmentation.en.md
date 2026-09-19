@@ -1,6 +1,6 @@
 ---
 lang: "en"
-slug: "customer-segmentation"
+projectSlug: "customer-segmentation"
 category: "marketing-analytics"
 title: "Customer segmentation"
 summary: "Data-driven segmentation to replace generic campaigns with targeted marketing actions."

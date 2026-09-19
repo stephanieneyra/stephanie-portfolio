@@ -1,6 +1,6 @@
 ---
 lang: "en"
-slug: "example-reference"
+projectSlug: "example-reference"
 category: "bi-dashboards"
 title: "[Reference only — not published] Example project"
 summary: "This file only documents the frontmatter shape for real entries. published:false keeps it out of the site."

@@ -1,6 +1,6 @@
 ---
 lang: "es"
-slug: "demand-forecast-model"
+projectSlug: "demand-forecast-model"
 category: "forecasting-inventory"
 title: "Modelo de forecast de demanda"
 summary: "Modelo de pronóstico para reducir quiebres de stock y sobreinventario a partir del historial de ventas."

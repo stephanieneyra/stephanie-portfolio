@@ -1,6 +1,6 @@
 ---
 lang: "en"
-slug: "demand-forecast-model"
+projectSlug: "demand-forecast-model"
 category: "forecasting-inventory"
 title: "Demand forecast model"
 summary: "A forecasting model to reduce stockouts and overstock using historical sales data."

@@ -1,6 +1,6 @@
 ---
 lang: "es"
-slug: "retail-sales-dashboard"
+projectSlug: "retail-sales-dashboard"
 category: "bi-dashboards"
 title: "Dashboard de ventas retail"
 summary: "Panel ejecutivo para detectar tendencias, caídas de desempeño y oportunidades comerciales en ventas retail."
