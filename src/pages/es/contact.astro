@@ -7,7 +7,7 @@ const t = useTranslations(lang);
 
 // TODO: reemplazar con la access key real de Web3Forms de Stephanie.
 // Gratis, sin login, aquí: https://web3forms.com/
-const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE';
+const WEB3FORMS_KEY = 'ab2c7fc6-8451-455a-b2e1-18e1e12ddc4b';
 ---
 <BaseLayout lang={lang} title={t('nav.contact')} description={t('contact.subtitle')}>
   <section class="section wrap contact-page">
@@ -133,7 +133,7 @@ const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE';
     const data = new FormData(form);
     const key = data.get('access_key');
 
-    if (!key || key === 'YOUR_ACCESS_KEY_HERE') {
+    if (!key || key === 'ab2c7fc6-8451-455a-b2e1-18e1e12ddc4b') {
       alert('El formulario todavía no está configurado del todo — falta la access key de Web3Forms.');
       return;
     }
