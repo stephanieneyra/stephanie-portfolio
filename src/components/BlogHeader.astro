@@ -1,0 +1,87 @@
+---
+import { localizedPath } from '../i18n/utils';
+import type { Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const backLabel = lang === 'es' ? '\u2190 Volver al inicio' : '\u2190 Back to portfolio';
+---
+<header class="blog-header">
+  <div class="wrap blog-header-inner">
+    <div class="left">
+      <a href={localizedPath(lang, '/')} class="brand" aria-label="Stephanie Neyra">S.</a>
+      <a href={localizedPath(lang, '/')} class="back-link">{backLabel}</a>
+    </div>
+
+    <div class="lang-switch">
+      <a href="/blog" class:list={['lang-link', { active: lang === 'en' }]}>EN</a>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <a href="/es/blog" class:list={['lang-link', { active: lang === 'es' }]}>ES</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .blog-header {
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    background: var(--color-bg);
+    z-index: 20;
+  }
+
+  .blog-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .brand {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .back-link {
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--color-gray);
+  }
+
+  .back-link:hover {
+    color: var(--color-ink);
+  }
+
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .lang-link {
+    text-decoration: none;
+    color: var(--color-gray);
+  }
+
+  .lang-link.active {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .lang-sep {
+    color: var(--color-border);
+  }
+</style>

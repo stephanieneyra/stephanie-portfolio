@@ -35,10 +35,7 @@ const featuredProjects = [
   }
 ];
 
-const recentArticles = [
-  { title: 'Convertir datos en oportunidades de crecimiento', category: 'Análisis de casos reales' },
-  { title: '3 métricas que todo equipo de marketing debería medir', category: 'Aprendizajes aplicados' }
-];
+const recentArticles: { title: string; category: string }[] = [];
 ---
 <BaseLayout lang={lang} title="Home" description={t('hero.subtitle')}>
   <section class="hero section">
@@ -106,12 +103,16 @@ const recentArticles = [
       </div>
 
       <div class="articles-preview">
-        {recentArticles.map((a) => (
-          <a href="/es/blog" class="article-row">
-            <Tag>{a.category}</Tag>
-            <span class="article-row-title">{a.title}</span>
-          </a>
-        ))}
+        {recentArticles.length === 0 ? (
+          <p class="empty-articles">Nuevos artículos están en camino.</p>
+        ) : (
+          recentArticles.map((a) => (
+            <a href="/es/blog" class="article-row">
+              <Tag>{a.category}</Tag>
+              <span class="article-row-title">{a.title}</span>
+            </a>
+          ))
+        )}
       </div>
     </div>
   </section>
@@ -227,6 +228,11 @@ const recentArticles = [
     font-family: var(--font-serif);
     font-size: 18px;
     color: var(--color-ink);
+  }
+
+  .empty-articles {
+    color: var(--color-gray);
+    font-size: 15px;
   }
 
   .cta-final {

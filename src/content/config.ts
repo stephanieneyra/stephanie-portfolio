@@ -35,4 +35,28 @@ const projects = defineCollection({
   })
 });
 
-export const collections = { projects };
+const blogCategoryEnum = z.enum([
+  'real-world-case-analysis',
+  'applied-learning',
+  'professional-insights'
+]);
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    lang: z.enum(['en', 'es']),
+    // Same reasoning as projectSlug above — avoids the reserved "slug" key.
+    articleSlug: z.string(),
+    category: blogCategoryEnum,
+    title: z.string(),
+    description: z.string(),
+    date: z.date(),
+    // Full articles live on Medium; this links out to the actual post.
+    externalUrl: z.string().url(),
+    image: z.string().optional(),
+    featured: z.boolean().default(false),
+    published: z.boolean().default(false)
+  })
+});
+
+export const collections = { projects, blog };
