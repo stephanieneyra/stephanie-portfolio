@@ -49,6 +49,16 @@ export const ui = {
     'about.readsPending': 'Coming soon \u2014 a short list of what shapes how I think about data and business.',
     'about.toolsHeading': 'Tools & Stack',
 
+    'contact.eyebrow': 'Contact',
+    'contact.title': 'Let\u2019s talk.',
+    'contact.subtitle': 'Have a role, a project, or just want to say hi? Send a message.',
+    'contact.name': 'Name',
+    'contact.email': 'Email',
+    'contact.message': 'Message',
+    'contact.send': 'Send message',
+    'contact.sent': 'Thanks \u2014 your message is on its way.',
+    'contact.elsewhere': 'Or find me here',
+
     'cta.title': 'Let\u2019s talk about your next data-driven decision.',
     'cta.getInTouch': 'Get in touch',
     'cta.downloadCv': 'Download CV',
@@ -100,6 +110,16 @@ export const ui = {
     'about.readsHeading': 'Reads \u00b7 Listens \u00b7 Podcasts',
     'about.readsPending': 'Pr\u00f3ximamente \u2014 una lista corta de lo que influye c\u00f3mo pienso sobre datos y negocio.',
     'about.toolsHeading': 'Herramientas',
+
+    'contact.eyebrow': 'Contacto',
+    'contact.title': 'Hablemos.',
+    'contact.subtitle': '\u00bfTienes una posici\u00f3n, un proyecto, o solo quieres saludar? Escr\u00edbeme.',
+    'contact.name': 'Nombre',
+    'contact.email': 'Correo',
+    'contact.message': 'Mensaje',
+    'contact.send': 'Enviar mensaje',
+    'contact.sent': 'Gracias \u2014 tu mensaje ya va en camino.',
+    'contact.elsewhere': 'O encu\u00e9ntrame aqu\u00ed',
 
     'cta.title': 'Hablemos de tu pr\u00f3xima decisi\u00f3n basada en datos.',
     'cta.getInTouch': 'Contactar',

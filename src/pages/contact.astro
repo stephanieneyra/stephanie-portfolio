@@ -4,26 +4,155 @@ import { useTranslations } from '../i18n/utils';
 
 const lang = 'en' as const;
 const t = useTranslations(lang);
+
+// TODO: replace with Stephanie's real Web3Forms access key once she has one.
+// Get one free, no login required, at https://web3forms.com/
+const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE';
 ---
-<BaseLayout lang={lang} title={t('nav.contact')} description={t('comingSoon.body')}>
-  <section class="section wrap coming-soon">
-    <span class="eyebrow">{t('nav.contact')}</span>
-    <h1>{t('comingSoon.title')}</h1>
-    <p>{t('comingSoon.body')}</p>
+<BaseLayout lang={lang} title={t('nav.contact')} description={t('contact.subtitle')}>
+  <section class="section wrap contact-page">
+    <span class="eyebrow">{t('contact.eyebrow')}</span>
+    <h1>{t('contact.title')}</h1>
+    <p class="subtitle">{t('contact.subtitle')}</p>
+
+    <form class="contact-form" data-web3forms>
+      <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+      <input type="hidden" name="subject" value="New message from stephanieneyra.com" />
+
+      <label>
+        {t('contact.name')}
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        {t('contact.email')}
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        {t('contact.message')}
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+
+      <button type="submit" class="btn btn-primary">{t('contact.send')}</button>
+      <p class="form-success" data-success hidden>{t('contact.sent')}</p>
+    </form>
+
+    <div class="elsewhere">
+      <span class="eyebrow">{t('contact.elsewhere')}</span>
+      <div class="elsewhere-links">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/stephanieneyra" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://medium.com" target="_blank" rel="noopener noreferrer">Medium</a>
+      </div>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
-  .coming-soon {
-    padding-top: 96px;
+  .contact-page {
+    padding-top: 72px;
     padding-bottom: 96px;
-    max-width: 640px;
+    max-width: 560px;
   }
-  .coming-soon h1 {
-    font-size: 32px;
-    margin-top: 12px;
+
+  .contact-page h1 {
+    font-size: clamp(30px, 4vw, 44px);
+    margin-top: 8px;
   }
-  .coming-soon p {
+
+  .subtitle {
     margin-top: 16px;
+    font-size: 17px;
+  }
+
+  .contact-form {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--color-ink);
+    resize: vertical;
+  }
+
+  .contact-form .btn {
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  .form-success {
+    font-size: 14px;
+    color: var(--color-matcha-dark);
+  }
+
+  .elsewhere {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .elsewhere-links {
+    margin-top: 12px;
+    display: flex;
+    gap: 20px;
+  }
+
+  .elsewhere-links a {
+    font-size: 15px;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .elsewhere-links a:hover {
+    color: var(--color-matcha-dark);
   }
 </style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[data-web3forms]');
+  const success = document.querySelector<HTMLElement>('[data-success]');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const key = data.get('access_key');
+
+    if (!key || key === 'YOUR_ACCESS_KEY_HERE') {
+      alert('Contact form is not fully configured yet — Web3Forms access key is missing.');
+      return;
+    }
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data
+      });
+      const result = await res.json();
+      if (result.success) {
+        form.reset();
+        if (success) success.hidden = false;
+      } else {
+        alert('Something went wrong sending your message. Please try again.');
+      }
+    } catch {
+      alert('Something went wrong sending your message. Please try again.');
+    }
+  });
+</script>
