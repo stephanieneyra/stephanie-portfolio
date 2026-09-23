@@ -31,11 +31,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'nu
       <span class="eyebrow">{t('blog.newsletterEyebrow')}</span>
       <h2>{t('blog.newsletterTitle')}</h2>
       <p>{t('blog.newsletterBody')}</p>
-      <form class="newsletter-form" data-pending="true">
-        <input type="email" required placeholder={t('blog.newsletterPlaceholder')} aria-label={t('blog.newsletterPlaceholder')} />
-        <button type="submit" class="btn btn-primary">{t('blog.newsletterCta')}</button>
-      </form>
-      <p class="form-note" data-note hidden>Newsletter integration coming soon.</p>
+      <div class="kit-embed">
+        <script async data-uid="e99c1884dc" src="https://stephanie-neyra.kit.com/e99c1884dc/index.js"></script>
+      </div>
     </div>
 
     <div class="panel">
@@ -120,28 +118,8 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'nu
     font-size: 15px;
   }
 
-  .newsletter-form {
+  .kit-embed {
     margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .newsletter-form input {
-    flex: 1;
-    min-width: 180px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    font-family: var(--font-sans);
-    font-size: 14px;
-  }
-
-  .form-note {
-    margin-top: 10px;
-    font-size: 13px;
-    font-style: italic;
-    color: var(--color-gray);
   }
 
   .panel > .btn,
@@ -237,11 +215,4 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'nu
   }
 </style>
 
-<script>
-  const form = document.querySelector<HTMLFormElement>('form[data-pending="true"]');
-  const note = document.querySelector<HTMLElement>('[data-note]');
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (note) note.hidden = false;
-  });
-</script>
+
